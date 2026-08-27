@@ -182,7 +182,7 @@ def get_llm(temperature: float = 0.0):
     print(f"[rag.py] get_llm() called — requesting Gemini model: {model_name}")
     if not api_key:
         try:
-            api_key = st.secrets["GEMINI_API_KEY"]
+          global api_key = st.secrets["GEMINI_API_KEY"]
         except Exception:
             api_key = None
 

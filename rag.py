@@ -176,23 +176,32 @@ def build_vector_store(text: str, persist_directory: Optional[str] = None):
 # =========================================================
 
 def get_llm(temperature: float = 0.0):
-    if not GEMINI_API_KEY:
-        raise RuntimeError("GEMINI_API_KEY not set. Add it to your .env file.")
-    model_name = "gemini-3.6-flash"
-    print(f"[rag.py] get_llm() called — requesting Gemini model: {model_name}")
+    # First try environment variable
+    api_key = GEMINI_API_KEY
+
+    # If not available, try Streamlit Cloud Secrets
     if not api_key:
         try:
-          api_key = st.secrets["GEMINI_API_KEY"]
+            api_key = st.secrets["GEMINI_API_KEY"]
         except Exception:
             api_key = None
 
+    # Final validation
     if not api_key:
         raise RuntimeError(
             "GEMINI_API_KEY not found. "
-            "Add it to Streamlit Cloud Secrets."
+            "Add it to your .env file locally or Streamlit Cloud Secrets."
         )
+
+    # Keep your model unchanged
+    model_name = "gemini-3.6-flash"
+
+    print(
+        f"[rag.py] get_llm() called — requesting Gemini model: {model_name}"
+    )
+
     return ChatGoogleGenerativeAI(
-        google_api_key=GEMINI_API_KEY,
+        google_api_key=api_key,
         model=model_name,
         temperature=temperature,
     )

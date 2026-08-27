@@ -180,6 +180,17 @@ def get_llm(temperature: float = 0.0):
         raise RuntimeError("GEMINI_API_KEY not set. Add it to your .env file.")
     model_name = "gemini-3.6-flash"
     print(f"[rag.py] get_llm() called — requesting Gemini model: {model_name}")
+    if not api_key:
+        try:
+            api_key = st.secrets["GEMINI_API_KEY"]
+        except Exception:
+            api_key = None
+
+    if not api_key:
+        raise RuntimeError(
+            "GEMINI_API_KEY not found. "
+            "Add it to Streamlit Cloud Secrets."
+        )
     return ChatGoogleGenerativeAI(
         google_api_key=GEMINI_API_KEY,
         model=model_name,

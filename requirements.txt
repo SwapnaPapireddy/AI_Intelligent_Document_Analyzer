@@ -1,0 +1,22 @@
+streamlit
+python-dotenv
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-huggingface
+langchain-chroma
+langchain-groq
+
+chromadb
+sentence-transformers
+
+# PDF handling
+pypdf
+
+# OCR / Vision layer (scanned documents & images)
+pytesseract
+pdf2image
+Pillow
+
+# Structured output
+pydantic

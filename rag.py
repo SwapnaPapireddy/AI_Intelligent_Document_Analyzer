@@ -194,7 +194,7 @@ def get_llm(temperature: float = 0.0):
         )
 
     # Keep your model unchanged
-    model_name = "gemini-3.6-flash"
+    model_name = "gemini-2.5-flash-lite"
 
     print(
         f"[rag.py] get_llm() called — requesting Gemini model: {model_name}"
